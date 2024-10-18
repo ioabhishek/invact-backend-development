@@ -14,7 +14,7 @@ app.get("/fullname", (req, res) => {
   let firstName = req.query.firstName
   let lastName = req.query.lastName
   let fullName = firstName + " " + lastName
-  res.send(fullname)
+  res.send(fullName)
 })
 
 // Endpoint 3: Concatenate month and year to return a formatted date

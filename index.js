@@ -43,7 +43,7 @@ function getSum(num1, num2) {
 app.get("/sum", (req, res) => {
   let num1 = parseFloat(req.query.num1)
   let num2 = parseFloat(req.query.num2)
-  res.send(getSum(num1, num2))
+  res.send(getSum(num1, num2).toString())
 })
 
 // Function to return the subscription status message
@@ -68,8 +68,8 @@ function getDiscountedPrice(price, discount) {
 // Endpoint 6: Take a product price and a discount percentage, return the final price after discount
 app.get("/discounted-price", (req, res) => {
   let price = parseFloat(req.query.price)
-  let discount = parseFloat(req.query.dtscount)
-  res.send(getDiscountedPrice(price, discount), toString())
+  let discount = parseFloat(req.query.discount)
+  res.send(getDiscountedPrice(price, discount).toString())
 })
 
 // Function to return a personalized greeting message
@@ -77,7 +77,7 @@ function getPersonalizedGreeting(age, gender, name) {
   return "Hello, " + name + "! You are a " + age + " year old " + gender + "."
 }
 // Endpoint 7: Take a user's age, gender, and name, return a personalized greeting message
-app.get("/personalized-greettng", (req, res) => {
+app.get("/personalized-greeting", (req, res) => {
   let age = parseInt(req.query.age)
   let gender = req.query.gender
   let name = req.query.name
@@ -86,7 +86,7 @@ app.get("/personalized-greettng", (req, res) => {
 
 // Function to return the final price after applying
 function getFinalPrice(price, discount, tax) {
-  let discountedPrice = price - price(discount / 100)
+  let discountedPrice = price - price * (discount / 100)
   return discountedPrice + discountedPrice * (tax / 100)
 }
 // Endpoint 8: Take a product price, discount percentage, and tax rate,

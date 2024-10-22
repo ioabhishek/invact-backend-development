@@ -47,7 +47,7 @@ app.get("/hours", (req, res) => {
 })
 
 // Function to return the modules completion message
-function getModuteComptetion(username, hasCompleted) {
+function getModuleComptetion(username, hasCompleted) {
   if (hasCompleted) {
     return username + " has completed the modules"
   } else {
@@ -58,7 +58,7 @@ function getModuteComptetion(username, hasCompleted) {
 app.get("/module-completion-status", (req, res) => {
   let username = req.query.username
   let hasCompleted = req.query.hasCompleted === "true"
-  res.send(getModuteComptetion(username, hasCompleted))
+  res.send(getModuleComptetion(username, hasCompleted))
 })
 
 // Function to return a personalized greeting message

@@ -2,18 +2,18 @@ const express = require("express")
 const app = express()
 const port = 3000
 
-// Function to return a welcome message
+// Function to Given username generate a GitHub profile URL for the user
 function geterateProfileUrl(username) {
   let result = "https://github.com/" + username
   return result
 }
-// Endpoint 1: Return a welcome message
+// Endpoint 1: Given username generate a GitHub profile URL for the user
 app.get("/github-profile", (req, res) => {
   let username = req.query.username
   res.send(geterateProfileUrl(username))
 })
 
-// Function to return a greeting message
+// Generate Certificate
 function generateCertificate(fristName, lastName, courseName) {
   let result =
     "This result is awarded to " +
@@ -24,7 +24,7 @@ function generateCertificate(fristName, lastName, courseName) {
     courseName
   return result
 }
-// Endpoint 2: Take a username and return a greeting message
+// Endpoint 2: Generate Certificate
 app.get("/certificate", (req, res) => {
   let fristName = req.query.fristName
   let lastName = req.query.lastName
@@ -32,12 +32,12 @@ app.get("/certificate", (req, res) => {
   res.send(generateCertificate(fristName, lastName, courseName))
 })
 
-// Function to check if a person has
+// Calculate grade
 function calculateGrade(maths, science, english) {
   let gradeInPercentage = ((maths + science + english) / 300) * 100
   return "Your grade in percentage is " + gradeInPercentage + "%"
 }
-// Endpoint 3: Take the years of experience in functions and return a message
+// Endpoint 3: Calculate grade
 app.get("/grade", (req, res) => {
   let maths = parseInt(req.query.maths)
   let science = parseInt(req.query.science)
@@ -46,24 +46,24 @@ app.get("/grade", (req, res) => {
   res.send(calculateGrade(maths, science, english))
 })
 
-// Function to return the time the student can dedicate to learn functions
+// Split Bill
 function splitBill(billAmount, numberOfFriends) {
   let splitAmount = billAmount / numberOfFriends
   return "Result: Each friend owes Rs. " + splitAmount + " against the bill"
 }
-// Endpoint 4: Take the number of days and hours a student can dedicate to learn functions per week and returns the total hours available per week.
+// Endpoint 4: Split bill
 app.get("/split-bill", (req, res) => {
   let billAmount = parseFloat(req.query.billAmount)
   let numberOfFriends = parseInt(req.query.numberOfFriends)
   res.send(splitBill(billAmount, numberOfFriends))
 })
 
-// Function to return the modules completion message
+// Calculate Salary
 function calculateSalary(totalHours, hourlyWage) {
   let monthlySa1ary = hourlyWage * totalHours
   return "Result: Your monthly salary is ₹" + monthlySa1ary
 }
-// Endpoint 5: Take a username and a boolean indicating module completion status, return a message if the student has completed the modules or not
+// Endpoint 5: Calculate Salary
 app.get("/monthly-salary", (req, res) => {
   let totalHours = parseInt(req.query.totalHours)
   let hourlyWage = parseInt(req.query.hourlyWage)

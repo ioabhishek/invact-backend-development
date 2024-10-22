@@ -3,99 +3,71 @@ const app = express()
 const port = 3000
 
 // Function to return a welcome message
-function getWelcomeMessage() {
-  return "We will now learn functions!"
+function geterateProfileUrl(username) {
+  let result = "https://github.com/" + username
+  return result
 }
 // Endpoint 1: Return a welcome message
-app.get("/welcome", (req, res) => {
-  res.send(getWelcomeMessage())
+app.get("/github-profile", (req, res) => {
+  let username = req.query.username
+  res.send(geterateProfileUrl(username))
 })
 
 // Function to return a greeting message
-function getGreetingMessage(username) {
-  return "Hey, " + username + "! Are you ready to learn functions with us?"
+function generateCertificate(fristName, lastName, courseName) {
+  let result =
+    "This result is awarded to " +
+    fristName +
+    " " +
+    lastName +
+    " for completing the course" +
+    courseName
+  return result
 }
 // Endpoint 2: Take a username and return a greeting message
-app.get("/greet", (req, res) => {
-  let username = req.query.username
-  res.send(getGreetingMessage(username))
+app.get("/certificate", (req, res) => {
+  let fristName = req.query.fristName
+  let lastName = req.query.lastName
+  let courseName = req.query.courseName
+  res.send(generateCertificate(fristName, lastName, courseName))
 })
 
 // Function to check if a person has
-function checkYearsOfExp(yearsOfExp) {
-  if (yearsOfExp > 0) {
-    return "You have some experience with functions. Great!"
-  } else {
-    return "No worries. You wilt start writing functions in no time!"
-  }
+function calculateGrade(maths, science, english) {
+  let gradeInPercentage = ((maths + science + english) / 300) * 100
+  return "Your grade in percentage is " + gradeInPercentage + "%"
 }
 // Endpoint 3: Take the years of experience in functions and return a message
-app.get("/message", (req, res) => {
-  let yearsOfExp = parseFloat(req.query.yearsOfExp)
-  res.send(checkYearsOfExp(yearsOfExp))
+app.get("/grade", (req, res) => {
+  let maths = parseInt(req.query.maths)
+  let science = parseInt(req.query.science)
+  let english = parseInt(req.query.english)
+
+  res.send(calculateGrade(maths, science, english))
 })
 
 // Function to return the time the student can dedicate to learn functions
-function getTime(days, hours) {
-  return days * hours
+function splitBill(billAmount, numberOfFriends) {
+  let splitAmount = billAmount / numberOfFriends
+  return "Result: Each friend owes Rs. " + splitAmount + " against the bill"
 }
 // Endpoint 4: Take the number of days and hours a student can dedicate to learn functions per week and returns the total hours available per week.
-app.get("/hours", (req, res) => {
-  let days = parseFloat(req.query.days)
-  let hours = parseFloat(req.query.hours)
-  res.send(getTime(days, hours).toString())
+app.get("/split-bill", (req, res) => {
+  let billAmount = parseFloat(req.query.billAmount)
+  let numberOfFriends = parseInt(req.query.numberOfFriends)
+  res.send(splitBill(billAmount, numberOfFriends))
 })
 
 // Function to return the modules completion message
-function getModuleComptetion(username, hasCompleted) {
-  if (hasCompleted) {
-    return username + " has completed the modules"
-  } else {
-    return username + " has not completed the modules"
-  }
+function calculateSalary(totalHours, hourlyWage) {
+  let monthlySa1ary = hourlyWage * totalHours
+  return "Result: Your monthly salary is ₹" + monthlySa1ary
 }
 // Endpoint 5: Take a username and a boolean indicating module completion status, return a message if the student has completed the modules or not
-app.get("/module-completion-status", (req, res) => {
-  let username = req.query.username
-  let hasCompleted = req.query.hasCompleted === "true"
-  res.send(getModuleComptetion(username, hasCompleted))
-})
-
-// Function to return a personalized greeting message
-function getPersonatizedGreeting(city, name) {
-  return "Hey, " + name + "!What's famous about " + city + "?"
-}
-// Endpoint 6: Take a student's city and name, return a personalized greeting message
-app.get("/personalized-greeting", (req, res) => {
-  let city = req.query.city
-  let name = req.query.name
-  res.send(getPersonatizedGreeting(city, name))
-})
-
-// Function to find the age from birth year
-function findAge(birthyear) {
-  return 2024 - birthyear
-}
-// Endpoint 7: Take the birth year of the student and return the age
-app.get("/find-age", (req, res) => {
-  let birthyear = parseInt(req.query.birthyear)
-  res.send(findAge(birthyear).toString())
-})
-
-// Function to return the time required message
-function findRequiredTime(days, hours) {
-  let time = days * hours
-  if (time >= 30) {
-    return "The time being dedicated is sufficient for learning functions"
-  } else {
-    return "The time being dedicated is not sufficient for learning functions"
-  }
-}
-// Endpoint 8: Take the days per week and hours per day a student can dedicate to learn functions and return whether it is sufficient ( 30)
-app.get("/is-time-sufficient", (req, res) => {
-  let days = parseFloat(req.query.days)
-  let hours = parseFloat(req.query.hours)
-  res.send(findRequiredTime(days, hours).toString())
+app.get("/monthly-salary", (req, res) => {
+  let totalHours = parseInt(req.query.totalHours)
+  let hourlyWage = parseInt(req.query.hourlyWage)
+  res.send(calculateSalary(totalHours, hourlyWage))
 })
 
 app.listen(port, () => {

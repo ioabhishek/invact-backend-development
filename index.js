@@ -82,6 +82,8 @@ app.get("/loyalty-points", (req, res) => {
   res.send(calculateLoyalPoints(purchaseAmount).toString())
 })
 
+// minor changes for deployment
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

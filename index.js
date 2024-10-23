@@ -13,7 +13,7 @@ app.get("/cart-total", (req, res) => {
   res.send(cartTotalAmount(newItemPrice, cartTotal).toString())
 })
 
-//  Apply a discount based on membership status
+// Apply a discount based on membership status
 function applyDiscount(cartTotal, isMember) {
   const discountPercentage = 10
   let finalPrice = cartTotal
@@ -22,7 +22,7 @@ function applyDiscount(cartTotal, isMember) {
   }
   return finalPrice
 }
-// Endpoint 2:   Apply a discount based on membership status
+// Endpoint 2: Apply a discount based on membership status
 app.get("/membership-discount", (req, res) => {
   const cartTotal = parseFloat(req.query.cartTotal)
   const isMember = req.query.isMember === "true"

@@ -2,87 +2,73 @@ const express = require("express")
 const app = express()
 const port = 3000
 
-//  Calculate the total price of items in the cart
-function cartTotalAmount(newItemPrice, cartTotal) {
-  return newItemPrice + cartTotal
+//  Calculate the Returns of the Stocks added
+function calculateReturns(boughtAt, marketPrice, quantity) {
+  let result = (marketPrice - boughtAt) * quantity
+  return result
 }
-// Endpoint 1:  Calculate the total price of items in the cart
-app.get("/cart-total", (req, res) => {
-  const newItemPrice = parseFloat(req.query.newItemPrice)
-  const cartTotal = parseFloat(req.query.cartTotal)
-  res.send(cartTotalAmount(newItemPrice, cartTotal).toString())
+// Endpoint 1:  Calculate the Returns of the Stocks added
+app.get("/calculate-returns", (req, res) => {
+  const boughtAt = parseFloat(req.query.boughtAt)
+  const marketPrice = parseFloat(req.query.marketPrice)
+  const quantity = req.query.quantity
+  res.send(calculateReturns(boughtAt, marketPrice, quantity).toString())
 })
 
-// Apply a discount based on membership status
-function applyDiscount(cartTotal, isMember) {
-  const discountPercentage = 10
-  let finalPrice = cartTotal
-  if (isMember) {
-    finalPrice = cartTotal - (cartTotal * discountPercentage) / 100
-  }
-  return finalPrice
+// Calculate the Returns of the Stocks added
+function totalReturns(stock1, stock2, stock3, stock4) {
+  return stock1 + stock2 + stock3 + stock4
 }
-// Endpoint 2: Apply a discount based on membership status
-app.get("/membership-discount", (req, res) => {
-  const cartTotal = parseFloat(req.query.cartTotal)
-  const isMember = req.query.isMember === "true"
-  res.send(applyDiscount(cartTotal, isMember).toString())
+// Endpoint 2: Calculate the Returns of the Stocks added
+app.get("/total-returns", (req, res) => {
+  const stock1 = parseFloat(req.query.stock1)
+  const stock2 = parseFloat(req.query.stock2)
+  const stock3 = parseFloat(req.query.stock3)
+  const stock4 = parseFloat(req.query.stock4)
+  res.send(totalReturns(stock1, stock2, stock3, stock4).toString())
 })
 
-// Calculate tax on the cart total
-function calculateTax(cartTotal) {
-  let taxPercentage = 5
-  let calculatedTex = (cartTotal * taxPercentage) / 100
-  return calculatedTex
+// Calculate the Return Percentage
+function calculateReturnPercentage(boughtAt, returns) {
+  let returnPercentage = ((returns - boughtAt) / boughtAt) * 100
+  return returnPercentage
 }
-// Endpoint 3 : Calculate tax on the cart total
-app.get("/calculate-tax", (req, res) => {
-  const cartTotal = parseFloat(req.query.cartTotal)
-  res.send(calculateTax(cartTotal).toString())
+// Endpoint 3:  Calculate the Return Percentage
+app.get("/calculate-return-percentage", (req, res) => {
+  const boughtAt = parseFloat(req.query.boughtAt)
+  const returns = parseFloat(req.query.returns)
+  res.send(calculateReturnPercentage(boughtAt, returns).toString())
 })
 
-// Estimate delivery time based on shipping method
-function estimateDeliveryTime(shippingMethod, distance) {
-  let result
-  if (shippingMethod === "standard") {
-    result = distance / 50
-  } else if (shippingMethod === "express") {
-    result = distance / 100
+// Calculate the Total Return Percentage
+function totalReturnPercentage(stock1, stock2, stock3, stock4) {
+  return stock1 + stock2 + stock3 + stock4
+}
+// Endpoint 4: Calculate the Total Return Percentage
+app.get("/total-return-percentage", (req, res) => {
+  const stock1 = parseFloat(req.query.stock1)
+  const stock2 = parseFloat(req.query.stock2)
+  const stock3 = parseFloat(req.query.stock3)
+  const stock4 = parseFloat(req.query.stock4)
+  res.send(totalReturnPercentage(stock1, stock2, stock3, stock4).toString())
+})
+
+// Identify the Status of Stocks based on their Return Value
+function checkReturnPercentage(returnPercentage) {
+  let result = ""
+
+  if (returnPercentage > 0) {
+    result = "Profit"
+  } else {
+    result = "Loss"
   }
   return result
 }
-// Endpoint 4 : Estimate delivery time based on shipping method
-app.get("/estimate-delivery", (req, res) => {
-  const shippingMethod = req.query.shippingMethod
-  const distance = parseFloat(req.query.distance)
-  res.send(estimateDeliveryTime(shippingMethod, distance).toString())
+// Endpoint 5 : Identify the Status of Stocks based on their Return Value
+app.get("/status", (req, res) => {
+  const returnPercentage = parseFloat(req.query.returnPercentage)
+  res.send(checkReturnPercentage(returnPercentage).toString())
 })
-
-// Calculate the shipping cost based on weight and distance
-function calculateShippingCost(weight, distance) {
-  let result = weight * distance * 0.1
-  return result
-}
-// Endpoint 5 : Calculate the shipping cost based on weight and distance
-app.get("/shipping-cost", (req, res) => {
-  const weight = parseFloat(req.query.weight)
-  const distance = parseFloat(req.query.distance)
-  res.send(calculateShippingCost(weight, distance).toString())
-})
-
-// Calculate loyalty points earned from a purchase
-function calculateLoyalPoints(purchaseAmount) {
-  const pointsMultiplier = 2
-  let loyaltyPoints = purchaseAmount * pointsMultiplier
-  return loyaltyPoints
-}
-// Endpoint 6 : Calculate loyalty points earned from a purchase
-app.get("/loyalty-points", (req, res) => {
-  const purchaseAmount = parseFloat(req.query.purchaseAmount)
-  res.send(calculateLoyalPoints(purchaseAmount).toString())
-})
-
-// minor changes for deployment
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
